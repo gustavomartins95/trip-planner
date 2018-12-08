@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
-import { View, Text, StyleSheet, ImageBackground, Image, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, ImageBackground, Image, TouchableWithoutFeedback } from 'react-native';
+
+import assets from './assets';
+import styles from './styles';
 
 export default class HomeScreen extends Component {
 
@@ -38,38 +41,3 @@ export default class HomeScreen extends Component {
     );
   }
 }
-
-const assets = {
-  background: require('../../assets/background.png'),
-  logoTripPlanner: require('../../assets/logo-tripplanner.png'),
-  logoDevPleno: require('../../assets/logo-devpleno.png')
-}
-
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'stretch',
-    justifyContent: 'space-between',
-  },
-  wrapperLogoTripPlanner: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  wrapperLogoDevPleno: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-    paddingBottom: 32,
-  },
-  buttonBackground: {
-    backgroundColor: '#fff',
-    paddingTop: 16,
-    paddingBottom: 16,
-  },
-  buttonText: {
-    textAlign: 'center',
-    fontSize: 18,
-  }
-})
