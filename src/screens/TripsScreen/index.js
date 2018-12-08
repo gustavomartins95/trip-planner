@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { View, Text, FlatList } from 'react-native';
 
 import Trip from './Trip';
+import isIphoneX from '../../utils/isIphoneX';
 
 export default class TripsScreen extends Component {
 
@@ -38,6 +39,9 @@ export default class TripsScreen extends Component {
         </View>
         <View>
           <FlatList
+            style={[
+              isIphoneX() ? { marginBottom: 28 } : null
+            ]}
             data={trips}
             renderItem={this.renderItem}
             keyExtractor={item => item.id}

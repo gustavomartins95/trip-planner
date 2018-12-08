@@ -4,6 +4,7 @@ import { View, Text, ImageBackground, Image, TouchableWithoutFeedback } from 're
 
 import assets from './assets';
 import styles from './styles';
+import isIphoneX from '../../utils/isIphoneX';
 
 export default class HomeScreen extends Component {
 
@@ -12,7 +13,7 @@ export default class HomeScreen extends Component {
   }
 
   state = {
-    show: true,
+    show: false,
   }
 
   handleShow = () => {
@@ -38,7 +39,10 @@ export default class HomeScreen extends Component {
           !this.state.show
             ?
             <TouchableWithoutFeedback onPress={this.handleShow}>
-              <View style={styles.buttonBackground}>
+              <View style={[
+                styles.buttonBackground,
+                isIphoneX() ? { paddingBottom: 32 } : null
+              ]}>
                 <Text style={styles.buttonText}>COMEÇAR</Text>
               </View>
             </TouchableWithoutFeedback>
@@ -47,7 +51,13 @@ export default class HomeScreen extends Component {
               <View style={styles.buttonEmptyStateBackground}>
                 <Image source={assets.pin} style={styles.pin} />
                 <Text style={styles.buttonEmptyStateText}>Vamos planejar sua primeira viagem?</Text>
-                <Image source={assets.arrow} style={styles.arrow} />
+                <Image
+                  source={assets.arrow}
+                  style={[
+                    styles.arrow,
+                    isIphoneX() ? { marginBottom: 32 } : null
+                  ]}
+                />
               </View>
             </TouchableWithoutFeedback>
         }

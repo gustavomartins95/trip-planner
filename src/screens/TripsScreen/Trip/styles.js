@@ -4,8 +4,9 @@ export default styles = StyleSheet.create({
   wrapperTrip: {
     backgroundColor: '#FFFFFF',
     paddingTop: 14,
-    paddingLeft: 14,
     paddingRight: 14,
+    paddingBottom: 14,
+    paddingLeft: 14,
   },
   image: {
     backgroundColor: '#EEEEEE',
@@ -25,7 +26,4 @@ export default styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
-  title: {
-    paddingBottom: 6,
-  }
 })
