@@ -11,13 +11,17 @@ export default class TripsScreen extends Component {
   }
 
   renderItem = item => {
-    return <Trip title={item.item.name} price={item.item.price} />
+    return <Trip
+      onPress={() => this.props.navigation.navigate('Trip')}
+      title={item.item.name}
+      price={item.item.price}
+    />
   }
 
   render() {
     const trips = [
-      { id: '1', name: 'Eurotrip 2018', price: 'R$5000' },
-      { id: '2', name: 'Expedição Atacama', price: 'R$3500' },
+      { id: '1', name: 'Eurotrip 2018', price: 'R$5.000' },
+      { id: '2', name: 'Expedição Atacama', price: 'R$3.500' },
     ]
     return (
       <View style={{
