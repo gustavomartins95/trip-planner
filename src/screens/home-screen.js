@@ -19,15 +19,15 @@ export default class HomeScreen extends Component {
 
     return (
       <ImageBackground
-        source={require('../../assets/background.png')}
+        source={assets.background}
         imageStyle={{ resizeMode: 'stretch' }}
         style={styles.background}
       >
         <View style={styles.wrapperLogoTripPlanner}>
-          <Image source={require('../../assets/logo-tripplanner.png')} />
+          <Image source={assets.logoTripPlanner} />
         </View>
         <View style={styles.wrapperLogoDevPleno}>
-          <Image source={require('../../assets/logo-devpleno.png')} />
+          <Image source={assets.logoDevPleno} />
         </View>
         <TouchableWithoutFeedback onPress={this.handleCounter}>
           <View style={styles.buttonBackground}>
@@ -37,6 +37,12 @@ export default class HomeScreen extends Component {
       </ImageBackground>
     );
   }
+}
+
+const assets = {
+  background: require('../../assets/background.png'),
+  logoTripPlanner: require('../../assets/logo-tripplanner.png'),
+  logoDevPleno: require('../../assets/logo-devpleno.png')
 }
 
 const styles = StyleSheet.create({
