@@ -8,18 +8,16 @@ import styles from './styles';
 export default class HomeScreen extends Component {
 
   state = {
-    counter: 0,
+    show: true,
   }
 
-  handleCounter = () => {
+  handleShow = () => {
     this.setState({
-      counter: this.state.counter + 1,
+      show: !this.state.show,
     })
   }
 
   render() {
-    const txtStyle = this.state.counter % 2 === 1 ? { color: '#24C6DC' } : null
-
     return (
       <ImageBackground
         source={assets.background}
@@ -32,11 +30,23 @@ export default class HomeScreen extends Component {
         <View style={styles.wrapperLogoDevPleno}>
           <Image source={assets.logoDevPleno} />
         </View>
-        <TouchableWithoutFeedback onPress={this.handleCounter}>
-          <View style={styles.buttonBackground}>
-            <Text style={[styles.buttonText, txtStyle]}>COMEÇAR</Text>
-          </View>
-        </TouchableWithoutFeedback>
+        {
+          !this.state.show
+            ?
+            <TouchableWithoutFeedback onPress={this.handleShow}>
+              <View style={styles.buttonBackground}>
+                <Text style={styles.buttonText}>COMEÇAR</Text>
+              </View>
+            </TouchableWithoutFeedback>
+            :
+            <TouchableWithoutFeedback onPress={this.handleShow}>
+              <View style={styles.buttonEmptyStateBackground}>
+                <Image source={assets.pin} style={styles.pin} />
+                <Text style={styles.buttonEmptyStateText}>Vamos planejar sua primeira viagem?</Text>
+                <Image source={assets.arrow} style={styles.arrow} />
+              </View>
+            </TouchableWithoutFeedback>
+        }
       </ImageBackground>
     );
   }
