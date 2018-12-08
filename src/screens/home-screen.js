@@ -3,7 +3,20 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, ImageBackground, Image, TouchableWithoutFeedback } from 'react-native';
 
 export default class HomeScreen extends Component {
+
+  state = {
+    counter: 0,
+  }
+
+  handleCounter = () => {
+    this.setState({
+      counter: this.state.counter + 1,
+    })
+  }
+
   render() {
+    const txtStyle = this.state.counter % 2 === 1 ? { color: '#24C6DC' } : null
+
     return (
       <ImageBackground
         source={require('../../assets/background.png')}
@@ -16,9 +29,9 @@ export default class HomeScreen extends Component {
         <View style={styles.wrapperLogoDevPleno}>
           <Image source={require('../../assets/logo-devpleno.png')} />
         </View>
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={this.handleCounter}>
           <View style={styles.buttonBackground}>
-            <Text style={styles.buttonText}>COMEÇAR</Text>
+            <Text style={[styles.buttonText, txtStyle]}>COMEÇAR</Text>
           </View>
         </TouchableWithoutFeedback>
       </ImageBackground>
