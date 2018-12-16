@@ -79,7 +79,7 @@ export default class AddPointScreen extends Component {
             />
           </MapView>
           <View style={styles.backButton}>
-            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Trips')}>
               <Image source={require('../../../assets/left-arrow.png')} />
             </TouchableOpacity>
           </View>

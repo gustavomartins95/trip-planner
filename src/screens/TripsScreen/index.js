@@ -69,7 +69,7 @@ export default class TripsScreen extends Component {
               right: 10,
               padding: 10,
             }}
-            onPress={() => this.props.navigation.navigate('AddTrip')}
+            onPress={() => this.props.navigation.navigate('AddTrip', { refresh: this.loadData })}
           >
             <Image source={require('../../../assets/add.png')} />
           </TouchableOpacity>
