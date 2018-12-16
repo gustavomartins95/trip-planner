@@ -32,7 +32,7 @@ export default class AddTripScreen extends Component {
     await AsyncStorage.setItem('trips', JSON.stringify(trips))
 
     this.props.navigation.state.params.refresh()
-    this.props.navigation.navigate('AddPoint', { id: trip.id })
+    this.props.navigation.navigate('Trips')
   }
 
   render() {
