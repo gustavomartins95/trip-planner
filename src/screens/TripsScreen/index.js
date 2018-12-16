@@ -40,6 +40,39 @@ export default class TripsScreen extends Component {
     />
   }
 
+  handleItemChange = info => {
+    const { viewableItems } = info
+    if (viewableItems && viewableItems.length > 0) {
+      const [item] = viewableItems
+      this.map.animateToRegion(
+        this.regionFrom(item.item.latitude, item.item.longitude, 300),
+        2500
+      )
+    }
+  }
+
+  regionFrom = (lat, lon, distance) => {
+    distance = distance / 2
+    const circumference = 40075
+    const oneDegreeOfLatitudeInMeters = 111.32 * 1000
+    const angularDistance = distance / circumference
+
+    const latitudeDelta = distance / oneDegreeOfLatitudeInMeters
+    const longitudeDelta = Math.abs(
+      Math.atan2(
+        Math.sin(angularDistance) * Math.cos(lat),
+        Math.cos(angularDistance) - Math.sin(lat) * Math.sin(lat)
+      )
+    )
+
+    return result = {
+      latitude: lat,
+      longitude: lon,
+      latitudeDelta,
+      longitudeDelta,
+    }
+  }
+
   render() {
     const { trips } = this.state
     return (
@@ -61,6 +94,7 @@ export default class TripsScreen extends Component {
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}
+            ref={ref => this.map = ref}
           />
           <TouchableOpacity
             style={{
@@ -84,6 +118,7 @@ export default class TripsScreen extends Component {
             keyExtractor={item => item.id.toString()}
             horizontal
             pagingEnabled
+            onViewableItemsChanged={this.handleItemChange}
           />
         </View>
       </View>
