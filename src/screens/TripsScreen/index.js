@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
 
 import Trip from './Trip';
 import isIphoneX from '../../utils/isIphoneX';
@@ -35,7 +35,17 @@ export default class TripsScreen extends Component {
           backgroundColor: '#DDDDDD',
           flex: 1,
         }}>
-          <Text style={{ paddingTop: 25 }}>Mapa</Text>
+          <TouchableOpacity
+            style={{
+              position: 'absolute',
+              bottom: 10,
+              right: 10,
+              padding: 10,
+            }}
+            onPress={() => this.props.navigation.navigate('AddTrip')}
+          >
+            <Image source={require('../../../assets/add.png')} />
+          </TouchableOpacity>
         </View>
         <View>
           <FlatList
