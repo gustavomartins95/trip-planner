@@ -19,8 +19,8 @@ export default class AddTripScreen extends Component {
       id: new Date().getTime(),
       trip: this.state.trip,
       price: 0,
-      latitude: 0,
-      longitude: 0,
+      latitude: -22.11963603,
+      longitude: -45.51210076,
     }
 
     const tripsAS = await AsyncStorage.getItem('trips')

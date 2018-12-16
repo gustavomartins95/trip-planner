@@ -12,7 +12,7 @@ export default styles = StyleSheet.create({
   title: {
     fontSize: 20,
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   input: {
     fontSize: 16,
