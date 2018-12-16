@@ -9,7 +9,7 @@ export default Trip = props => {
   return (
     <TouchableOpacity onPress={props.onPress} style={styles.wrapperTrip}>
       <View style={[styles.image, { width: dim.width - 28 }]}><Text>Imagem</Text></View>
-      <Text style={styles.price}>{props.price}</Text>
+      <Text style={styles.price}>R${props.price.toFixed(2)}</Text>
       <Text>{props.title}</Text>
     </TouchableOpacity>
   );
