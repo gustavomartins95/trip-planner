@@ -33,7 +33,7 @@ export default class TripsScreen extends Component {
   renderItem = item => {
     return <Trip
       onPress={() =>
-        this.props.navigation.navigate('Trip')
+        this.props.navigation.navigate('Trip', { id: item.item.id, refresh: this.loadData })
       }
       title={item.item.trip}
       price={item.item.price}

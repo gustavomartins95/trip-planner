@@ -52,6 +52,8 @@ export default class AddPointScreen extends Component {
       }
     })
     await AsyncStorage.setItem('trips', JSON.stringify(trips))
+    this.props.navigation.state.params.refresh()
+    this.props.navigation.goBack()
   }
 
   render() {
@@ -79,7 +81,7 @@ export default class AddPointScreen extends Component {
             />
           </MapView>
           <View style={styles.backButton}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Trips')}>
+            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
               <Image source={require('../../../assets/left-arrow.png')} />
             </TouchableOpacity>
           </View>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, Image, TouchableOpacity, AsyncStorage } from 'react-native';
 
 import styles from './styles';
 
@@ -10,47 +10,89 @@ export default class TripScreen extends Component {
     header: null
   }
 
+  state = {
+    trip: [],
+    points: [],
+  }
+
+  componentDidMount() {
+    this.loadData()
+  }
+
+  loadData = async () => {
+    const tripsAs = await AsyncStorage.getItem('trips')
+    let trips = []
+    if (tripsAs) {
+      trips = JSON.parse(tripsAs)
+    }
+
+    const id = this.props.navigation.state.params.id
+    const pointsAs = await AsyncStorage.getItem('trip-' + id)
+    let points = []
+    if (pointsAs) {
+      points = JSON.parse(pointsAs)
+    }
+
+    let trip = {
+      trip: '',
+      price: 0,
+    }
+    trips.forEach(t => {
+      if (t.id === id) {
+        trip.trip = t.trip
+        trip.price = t.price ? t.price : 0
+      }
+    })
+
+    this.setState({ trip, points })
+  }
+
   renderItem = item => {
     return (
       <View style={styles.item}>
         <View style={styles.wrapperInfo}>
-          <Text style={styles.itemName}>{item.item.name}</Text>
+          <Text style={styles.itemName}>{item.item.pointName}</Text>
           <Text style={styles.itemDescription}>{item.item.description}</Text>
         </View>
         <View style={styles.itemWrapperPrice}>
-          <Text style={styles.itemPrice}>{item.item.price}</Text>
+          <Text style={styles.itemPrice}>R${item.item.price.toFixed(2)}</Text>
         </View>
       </View>
     )
   }
 
   render() {
-    const trip = {
-      name: 'Eurotrip 2018',
-      price: 'R$5000',
-      places: [
-        { id: '1', name: 'Amsterdan', description: 'Chegada', price: 'R$200', lat: 0, long: 0 },
-        { id: '2', name: 'Bruxelas', description: 'Chegada', price: 'R$100', lat: 0, long: 0 },
-        { id: '3', name: 'Amsterdan', description: 'Chegada', price: 'R$200', lat: 0, long: 0 },
-        { id: '4', name: 'Bruxelas', description: 'Chegada', price: 'R$100', lat: 0, long: 0 },
-        { id: '5', name: 'Amsterdan', description: 'Chegada', price: 'R$200', lat: 0, long: 0 },
-        { id: '6', name: 'Bruxelas', description: 'Chegada', price: 'R$100', lat: 0, long: 0 },
-        { id: '7', name: 'Amsterdan', description: 'Chegada', price: 'R$200', lat: 0, long: 0 },
-        { id: '8', name: 'Bruxelas', description: 'Chegada', price: 'R$100', lat: 0, long: 0 },
-        { id: '9', name: 'Amsterdan', description: 'Chegada', price: 'R$200', lat: 0, long: 0 },
-        { id: '10', name: 'Bruxelas', description: 'Chegada', price: 'R$100', lat: 0, long: 0 },
-      ]
-    }
+    const { points, trip } = this.state
+    const id = this.props.navigation.state.params.id
     return (
       <View style={styles.wrapper}>
         <View style={styles.header}>
           <View style={styles.backButton}>
-            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.state.params.refresh()
+                this.props.navigation.goBack()
+              }}
+            >
               <Image source={require('../../../assets/left-arrow.png')} />
             </TouchableOpacity>
           </View>
-          <Text style={styles.tripName}>{trip.name}</Text>
-          <Text style={styles.tripPrice}>{trip.price}</Text>
+          <Text style={styles.tripName}>{trip.trip}</Text>
+          <Text style={styles.tripPrice}>R${parseFloat(trip.price).toFixed(2)}</Text>
+          <TouchableOpacity
+            style={{
+              position: 'absolute',
+              top: 30,
+              right: 10,
+              paddingTop: 10,
+              paddingRight: 10,
+              paddingBottom: 10,
+              paddingLeft: 10,
+            }}
+            onPress={() => this.props.navigation.navigate('AddPoint', { id: id, refresh: this.loadData })}
+          >
+            <Image source={require('../../../assets/add.png')} />
+          </TouchableOpacity>
         </View>
         <FlatList
           style={{ flex: 1, }}
@@ -58,9 +100,9 @@ export default class TripScreen extends Component {
             paddingTop: 16,
             paddingBottom: 16,
           }}
-          data={trip.places}
+          keyExtractor={item => item.id.toString()}
+          data={points}
           renderItem={this.renderItem}
-          keyExtractor={item => item.id}
         />
       </View>
     )
